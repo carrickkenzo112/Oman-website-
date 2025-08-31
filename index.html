@@ -3,638 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oman Financial - Loan Services</title>
+    <title>Oman Financial Company - Your Trusted Loan Partner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a237e',
+                        secondary: '#283593',
+                        accent: '#3949ab',
+                        light: '#e8eaf6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
         }
         
-        .slider::-moz-range-thumb {
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
         
-        .gradient-text {
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            background-image: linear-gradient(to right, #60a5fa, #93c5fd);
+        .nav-link:hover::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: white;
+            margin-top: 2px;
+        }
+        
+        .loan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+<body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md z-50 border-b border-blue-500/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+    <nav class="bg-primary text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold gradient-text">Oman Financial</span>
+                    <i class="fas fa-university text-2xl"></i>
+                    <span class="text-xl font-bold">Oman Financial</span>
                 </div>
-
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8">
-                    <button onclick="scrollToSection('home')" class="capitalize transition-all duration-300 hover:text-blue-300 text-blue-300">home</button>
-                    <button onclick="scrollToSection('loans')" class="capitalize transition-all duration-300 hover:text-blue-300 text-gray-300">loans</button>
-                    <button onclick="scrollToSection('calculator')" class="capitalize transition-all duration-300 hover:text-blue-300 text-gray-300">calculator</button>
-                    <button onclick="scrollToSection('about')" class="capitalize transition-all duration-300 hover:text-blue-300 text-gray-300">about</button>
-                    <button onclick="scrollToSection('faq')" class="capitalize transition-all duration-300 hover:text-blue-300 text-gray-300">faq</button>
-                    <button onclick="scrollToSection('contact')" class="capitalize transition-all duration-300 hover:text-blue-300 text-gray-300">contact</button>
+                    <a href="#home" class="nav-link font-medium hover:text-light">Home</a>
+                    <a href="#loans" class="nav-link font-medium hover:text-light">Loan Options</a>
+                    <a href="#apply" class="nav-link font-medium hover:text-light">Apply</a>
+                    <a href="#about" class="nav-link font-medium hover:text-light">About Us</a>
+                    <a href="#faq" class="nav-link font-medium hover:text-light">FAQ</a>
+                    <a href="#contact" class="nav-link font-medium hover:text-light">Contact</a>
                 </div>
-
-                <!-- Mobile menu button -->
-                <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg hover:bg-blue-500/20 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
-
-            <!-- Mobile Navigation -->
-            <div id="mobileMenu" class="hidden md:hidden bg-slate-800/90 backdrop-blur-md rounded-b-xl border-t border-blue-500/20">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <button onclick="scrollToSection('home')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">home</button>
-                    <button onclick="scrollToSection('loans')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">loans</button>
-                    <button onclick="scrollToSection('calculator')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">calculator</button>
-                    <button onclick="scrollToSection('about')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">about</button>
-                    <button onclick="scrollToSection('faq')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">faq</button>
-                    <button onclick="scrollToSection('contact')" class="block w-full text-left px-3 py-2 capitalize rounded-md hover:bg-blue-500/20 transition-colors">contact</button>
-                </div>
+            <div class="md:hidden hidden py-2" id="mobile-menu">
+                <a href="#home" class="block py-2 hover:bg-accent px-2 rounded">Home</a>
+                <a href="#loans" class="block py-2 hover:bg-accent px-2 rounded">Loan Options</a>
+                <a href="#apply" class="block py-2 hover:bg-accent px-2 rounded">Apply</a>
+                <a href="#about" class="block py-2 hover:bg-accent px-2 rounded">About Us</a>
+                <a href="#faq" class="block py-2 hover:bg-accent px-2 rounded">FAQ</a>
+                <a href="#contact" class="block py-2 hover:bg-accent px-2 rounded">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
-                            Your Trusted
-                            <span class="block gradient-text">Loan Partner</span>
-                        </h1>
-                        <p class="text-xl text-blue-100/80 leading-relaxed">
-                            Flexible Loans Tailored for Your Needs
-                        </p>
-                    </div>
+    <section id="home" class="bg-gradient-to-r from-primary to-accent text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Your Trusted Loan Partner</h1>
+                <p class="text-xl md:text-2xl mb-8">Flexible Loans Tailored for Your Needs</p>
+                <a href="#apply" class="bg-white text-primary font-bold py-3 px-8 rounded-full hover:bg-light transition duration-300 inline-block">
+                    Apply for a Loan
+                </a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="glass-card p-6 max-w-md w-full">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Quick Application</h3>
+                    <p class="text-gray-700 mb-4">Start your application now and get a response within 24-72 hours.</p>
+                    <a href="#apply" class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300 inline-block">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="scrollToSection('calculator')" class="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25">
-                            Apply for a Loan
-                        </button>
-                        <button onclick="scrollToSection('loans')" class="border-2 border-blue-500/50 hover:border-blue-400 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-blue-500/10">
-                            Explore Loan Options
-                        </button>
+    <!-- Loan Categories Section -->
+    <section id="loans" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Our Loan Options</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Personal Loan Card -->
+                <div class="loan-card glass-card p-6 rounded-xl transition duration-300 hover:shadow-xl">
+                    <div class="bg-primary text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i class="fas fa-user text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Personal Loans</h3>
+                    <p class="text-gray-600 mb-4">Up to $50,000 | From 0.88% | 1–5 years</p>
+                    <a href="#apply" class="text-accent font-medium hover:text-secondary inline-flex items-center">
+                        Apply Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Mortgage Loan Card -->
+                <div class="loan-card glass-card p-6 rounded-xl transition duration-300 hover:shadow-xl">
+                    <div class="bg-primary text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i class="fas fa-home text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Mortgage Loans</h3>
+                    <p class="text-gray-600 mb-4">Up to $2,000,000 | From 4.5% | Up to 30 years</p>
+                    <a href="#apply" class="text-accent font-medium hover:text-secondary inline-flex items-center">
+                        Apply Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Business Loan Card -->
+                <div class="loan-card glass-card p-6 rounded-xl transition duration-300 hover:shadow-xl">
+                    <div class="bg-primary text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i class="fas fa-briefcase text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Business Loans</h3>
+                    <p class="text-gray-600 mb-4">Up to $5,000,000 | Flexible terms | No collateral</p>
+                    <a href="#apply" class="text-accent font-medium hover:text-secondary inline-flex items-center">
+                        Apply Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Student Loan Card -->
+                <div class="loan-card glass-card p-6 rounded-xl transition duration-300 hover:shadow-xl">
+                    <div class="bg-primary text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                        <i class="fas fa-graduation-cap text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">Student Loans</h3>
+                    <p class="text-gray-600 mb-4">Up to $150,000 | Interest up to 3% | Repayment after graduation</p>
+                    <a href="#apply" class="text-accent font-medium hover:text-secondary inline-flex items-center">
+                        Apply Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-16 bg-gradient-to-b from-light to-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Why Choose Oman Financial?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-percentage text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Low Interest Rates</h3>
+                    <p class="text-gray-600 text-sm">Competitive rates that save you money</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-calendar-alt text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Flexible Terms</h3>
+                    <p class="text-gray-600 text-sm">Repayment plans that fit your budget</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Fast Approval</h3>
+                    <p class="text-gray-600 text-sm">Decisions in 24-72 hours</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-eye text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Transparent</h3>
+                    <p class="text-gray-600 text-sm">No hidden fees or surprises</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600 text-sm">Always here to help you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section id="apply" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Loan Application</h2>
+            
+            <div class="max-w-3xl mx-auto glass-card p-8 rounded-xl">
+                <div class="mb-8">
+                    <div class="flex justify-between">
+                        <div class="step flex flex-col items-center w-1/4">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mb-2">1</div>
+                            <span class="text-sm text-center">Personal Info</span>
+                        </div>
+                        <div class="step flex flex-col items-center w-1/4">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2">2</div>
+                            <span class="text-sm text-center">Employment</span>
+                        </div>
+                        <div class="step flex flex-col items-center w-1/4">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2">3</div>
+                            <span class="text-sm text-center">Documents</span>
+                        </div>
+                        <div class="step flex flex-col items-center w-1/4">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2">4</div>
+                            <span class="text-sm text-center">Submit</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-200 h-1 mt-4">
+                        <div class="bg-primary h-1 w-1/4" id="progress-bar"></div>
                     </div>
                 </div>
-
-                <div class="relative">
-                    <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20 shadow-2xl">
-                        <h3 class="text-2xl font-bold mb-6 text-center">Loan Calculator</h3>
-                        
-                        <div class="space-y-6">
+                
+                <form id="loan-form">
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-step active" id="step-1">
+                        <h3 class="text-xl font-bold mb-6 text-primary">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-blue-100 mb-2">Loan Type</label>
-                                <select id="loanType" onchange="updateLoanCalculation()" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="full-name" class="block text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="full-name" name="full-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="dob" class="block text-gray-700 mb-2">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="nationality" class="block text-gray-700 mb-2">Nationality</label>
+                                <input type="text" id="nationality" name="nationality" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="id-number" class="block text-gray-700 mb-2">ID/Passport Number</label>
+                                <input type="text" id="id-number" name="id-number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="address" class="block text-gray-700 mb-2">Address</label>
+                                <input type="text" id="address" name="address" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="loan-type" class="block text-gray-700 mb-2">Loan Type</label>
+                                <select id="loan-type" name="loan-type" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                                    <option value="">Select Loan Type</option>
                                     <option value="personal">Personal Loan</option>
                                     <option value="mortgage">Mortgage Loan</option>
                                     <option value="business">Business Loan</option>
                                     <option value="student">Student Loan</option>
                                 </select>
                             </div>
-
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <label id="loanAmountLabel" class="block text-sm font-medium text-blue-100">Loan Amount: $20,000</label>
-                                    <span id="maxAmount" class="text-sm text-blue-300">Up to $50,000</span>
-                                </div>
-                                <input id="loanAmount" type="range" min="1000" max="50000" step="1000" value="20000" oninput="updateLoanAmount()" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider">
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <label id="loanTermLabel" class="block text-sm font-medium text-blue-100">Repayment Term: 3 years</label>
-                                    <span id="maxTerm" class="text-sm text-blue-300">Up to 5 years</span>
-                                </div>
-                                <input id="loanTerm" type="range" min="1" max="5" value="3" oninput="updateLoanTerm()" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider">
-                            </div>
-
-                            <div class="grid grid-cols-3 gap-4 mt-6">
-                                <div class="bg-slate-700/50 rounded-lg p-4 text-center">
-                                    <div id="monthlyPayment" class="text-2xl font-bold text-blue-300">$0</div>
-                                    <div class="text-sm text-blue-100">Monthly</div>
-                                </div>
-                                <div class="bg-slate-700/50 rounded-lg p-4 text-center">
-                                    <div id="totalPayment" class="text-2xl font-bold text-blue-300">$0</div>
-                                    <div class="text-sm text-blue-100">Total</div>
-                                </div>
-                                <div class="bg-slate-700/50 rounded-lg p-4 text-center">
-                                    <div id="totalInterest" class="text-2xl font-bold text-blue-300">$0</div>
-                                    <div class="text-sm text-blue-100">Interest</div>
-                                </div>
-                            </div>
-
-                            <button onclick="startApplication()" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-                                Proceed to Application
+                        </div>
+                        <div class="flex justify-end mt-8">
+                            <button type="button" class="next-step bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
                             </button>
                         </div>
                     </div>
+                    
+                    <!-- Step 2: Employment & Financial Information -->
+                    <div class="form-step" id="step-2">
+                        <h3 class="text-xl font-bold mb-6 text-primary">Employment & Financial Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="employer" class="block text-gray-700 mb-2">Employer Name</label>
+                                <input type="text" id="employer" name="employer" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="job-title" class="block text-gray-700 mb-2">Job Title</label>
+                                <input type="text" id="job-title" name="job-title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="income" class="block text-gray-700 mb-2">Monthly Income ($)</label>
+                                <input type="number" id="income" name="income" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="employment-years" class="block text-gray-700 mb-2">Years at Current Job</label>
+                                <input type="number" id="employment-years" name="employment-years" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="bank-name" class="block text-gray-700 mb-2">Bank Name</label>
+                                <input type="text" id="bank-name" name="bank-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="account-number" class="block text-gray-700 mb-2">Account Number</label>
+                                <input type="text" id="account-number" name="account-number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="loan-amount" class="block text-gray-700 mb-2">Loan Amount Requested ($)</label>
+                                <input type="number" id="loan-amount" name="loan-amount" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="loan-term" class="block text-gray-700 mb-2">Preferred Loan Term (years)</label>
+                                <input type="number" id="loan-term" name="loan-term" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-step bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full hover:bg-gray-400 transition duration-300">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" class="next-step bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Documents & Additional Info -->
+                    <div class="form-step" id="step-3">
+                        <h3 class="text-xl font-bold mb-6 text-primary">Documents & Additional Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label class="block text-gray-700 mb-2">Upload Documents (PDF, JPG, PNG)</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input type="file" id="id-document" name="id-document" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                                    <label for="id-document" class="cursor-pointer">
+                                        <i class="fas fa-cloud-upload-alt text-4xl text-primary mb-2"></i>
+                                        <p class="text-gray-600">Click to upload ID/Passport</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2">
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input type="file" id="proof-of-address" name="proof-of-address" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                                    <label for="proof-of-address" class="cursor-pointer">
+                                        <i class="fas fa-cloud-upload-alt text-4xl text-primary mb-2"></i>
+                                        <p class="text-gray-600">Click to upload Proof of Address</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2">
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input type="file" id="income-proof" name="income-proof" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                                    <label for="income-proof" class="cursor-pointer">
+                                        <i class="fas fa-cloud-upload-alt text-4xl text-primary mb-2"></i>
+                                        <p class="text-gray-600">Click to upload Income Verification</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="emergency-name" class="block text-gray-700 mb-2">Emergency Contact Name</label>
+                                <input type="text" id="emergency-name" name="emergency-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="emergency-phone" class="block text-gray-700 mb-2">Emergency Contact Phone</label>
+                                <input type="tel" id="emergency-phone" name="emergency-phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                            <div>
+                                <label for="emergency-relation" class="block text-gray-700 mb-2">Relationship</label>
+                                <input type="text" id="emergency-relation" name="emergency-relation" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-step bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full hover:bg-gray-400 transition duration-300">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" class="next-step bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Review & Submit -->
+                    <div class="form-step" id="step-4">
+                        <h3 class="text-xl font-bold mb-6 text-primary">Review & Submit Application</h3>
+                        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                            <h4 class="font-bold text-lg mb-4 text-primary">Personal Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Full Name</p>
+                                    <p id="review-full-name" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Date of Birth</p>
+                                    <p id="review-dob" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Nationality</p>
+                                    <p id="review-nationality" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">ID/Passport Number</p>
+                                    <p id="review-id-number" class="font-medium"></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="font-bold text-lg mb-4 text-primary mt-6">Employment Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Employer</p>
+                                    <p id="review-employer" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Job Title</p>
+                                    <p id="review-job-title" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Monthly Income</p>
+                                    <p id="review-income" class="font-medium"></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="font-bold text-lg mb-4 text-primary mt-6">Loan Details</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Loan Type</p>
+                                    <p id="review-loan-type" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Loan Amount</p>
+                                    <p id="review-loan-amount" class="font-medium"></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Loan Term</p>
+                                    <p id="review-loan-term" class="font-medium"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="terms" name="terms" class="mt-1 mr-2" required>
+                                <label for="terms" class="text-gray-700">I agree to the <a href="#privacy" class="text-accent hover:underline">Privacy Policy</a> and confirm that all information provided is accurate.</label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button type="button" class="prev-step bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full hover:bg-gray-400 transition duration-300">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="submit" class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300">
+                                Submit Application <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Success Message (hidden by default) -->
+                <div id="success-message" class="hidden text-center py-8">
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                        <i class="fas fa-check-circle text-4xl text-green-500 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Thank You!</h3>
+                        <p class="mb-4">Your application has been successfully submitted.</p>
+                        <p>We'll review your information and respond within 24-72 hours.</p>
+                    </div>
+                    <a href="#home" class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300 inline-block">
+                        Back to Home
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Us</h2>
-                <p class="text-xl text-blue-100/80">We make borrowing simple, transparent, and accessible</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-percentage text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Low Interest Rates</h3>
-                    <p class="text-blue-100/80">Competitive rates starting at 0.88%</p>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-clock text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Flexible Terms</h3>
-                    <p class="text-blue-100/80">Choose repayment periods that fit your budget</p>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-check-circle text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Fast Approval</h3>
-                    <p class="text-blue-100/80">Get approved within 24-72 hours</p>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-shield-alt text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">No Hidden Fees</h3>
-                    <p class="text-blue-100/80">Transparent pricing with no surprises</p>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-headset text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
-                    <p class="text-blue-100/80">Our team is always here to help</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Loan Categories -->
-    <section id="loans" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Loan Options</h2>
-                <p class="text-xl text-blue-100/80">Choose the right loan for your needs</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-star text-xl"></i>
-                        </div>
-                        <span class="text-2xl font-bold text-blue-300">0.88%</span>
-                    </div>
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gradient-to-b from-white to-light">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold mb-6 text-primary">About Oman Financial Company</h2>
+                    <p class="text-gray-700 mb-4">Oman Financial Company is a trusted provider of personal, mortgage, student, and business loans. We prioritize fairness, transparency, and flexibility for our customers.</p>
+                    <p class="text-gray-700 mb-6">Founded with the mission to make financial services accessible to everyone, we've helped thousands of clients achieve their dreams through responsible lending.</p>
                     
-                    <h3 class="text-2xl font-bold mb-4">Personal Loan</h3>
-                    <p class="text-blue-100/80 mb-6 leading-relaxed">
-                        Up to $50,000, starting at 0.88%, up to 5 years
-                    </p>
-
-                    <div class="space-y-2 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Maximum Amount:</span>
-                            <span class="font-medium">$50,000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Term:</span>
-                            <span class="font-medium">5 years</span>
-                        </div>
-                    </div>
-
-                    <button onclick="selectLoanType('personal')" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300">
-                        Apply Now
-                    </button>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-home text-xl"></i>
-                        </div>
-                        <span class="text-2xl font-bold text-blue-300">4.5%</span>
-                    </div>
-                    
-                    <h3 class="text-2xl font-bold mb-4">Mortgage Loan</h3>
-                    <p class="text-blue-100/80 mb-6 leading-relaxed">
-                        Up to $2,000,000, starting at 4.5%, up to 30 years
-                    </p>
-
-                    <div class="space-y-2 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Maximum Amount:</span>
-                            <span class="font-medium">$2,000,000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Term:</span>
-                            <span class="font-medium">30 years</span>
-                        </div>
-                    </div>
-
-                    <button onclick="selectLoanType('mortgage')" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300">
-                        Apply Now
-                    </button>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-briefcase text-xl"></i>
-                        </div>
-                        <span class="text-2xl font-bold text-blue-300">6.0%</span>
-                    </div>
-                    
-                    <h3 class="text-2xl font-bold mb-4">Business Loan</h3>
-                    <p class="text-blue-100/80 mb-6 leading-relaxed">
-                        Up to $5,000,000, flexible terms, no collateral required
-                    </p>
-
-                    <div class="space-y-2 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Maximum Amount:</span>
-                            <span class="font-medium">$5,000,000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Term:</span>
-                            <span class="font-medium">10 years</span>
-                        </div>
-                    </div>
-
-                    <button onclick="selectLoanType('business')" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300">
-                        Apply Now
-                    </button>
-                </div>
-                
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-graduation-cap text-xl"></i>
-                        </div>
-                        <span class="text-2xl font-bold text-blue-300">3.0%</span>
-                    </div>
-                    
-                    <h3 class="text-2xl font-bold mb-4">Student Loan</h3>
-                    <p class="text-blue-100/80 mb-6 leading-relaxed">
-                        Up to $150,000, interest up to 3%, repayment starts after graduation
-                    </p>
-
-                    <div class="space-y-2 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Maximum Amount:</span>
-                            <span class="font-medium">$150,000</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-blue-100/80">Term:</span>
-                            <span class="font-medium">15 years</span>
-                        </div>
-                    </div>
-
-                    <button onclick="selectLoanType('student')" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300">
-                        Apply Now
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Loan Application -->
-    <section id="calculator" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Loan Application</h2>
-                <p class="text-xl text-blue-100/80">Complete your application in just 4 simple steps</p>
-            </div>
-
-            <!-- Progress Steps -->
-            <div class="flex justify-between mb-8">
-                <div class="flex-1 px-2">
-                    <div id="step1" class="h-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700"></div>
-                    <div class="mt-2 text-center font-semibold text-blue-300">Step 1</div>
-                </div>
-                <div class="flex-1 px-2">
-                    <div id="step2" class="h-2 rounded-full bg-slate-700"></div>
-                    <div class="mt-2 text-center font-semibold text-blue-100/80">Step 2</div>
-                </div>
-                <div class="flex-1 px-2">
-                    <div id="step3" class="h-2 rounded-full bg-slate-700"></div>
-                    <div class="mt-2 text-center font-semibold text-blue-100/80">Step 3</div>
-                </div>
-                <div class="flex-1 px-2">
-                    <div id="step4" class="h-2 rounded-full bg-slate-700"></div>
-                    <div class="mt-2 text-center font-semibold text-blue-100/80">Step 4</div>
-                </div>
-            </div>
-
-            <div id="applicationForm" class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20">
-                <!-- Step 1: Loan Details -->
-                <div id="step1Content" class="space-y-6">
-                    <h3 class="text-2xl font-bold mb-6">Loan Details</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Loan Type</label>
-                            <select id="appLoanType" onchange="updateLoanCalculation()" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="personal">Personal Loan</option>
-                                <option value="mortgage">Mortgage Loan</option>
-                                <option value="business">Business Loan</option>
-                                <option value="student">Student Loan</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Loan Amount</label>
-                            <input id="appLoanAmount" type="number" value="20000" oninput="updateLoanAmount()" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter loan amount">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-blue-100 mb-2">Repayment Term (years)</label>
-                        <input id="appLoanTerm" type="number" value="3" oninput="updateLoanTerm()" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter term in years">
-                    </div>
-                    <div class="bg-slate-700/50 rounded-lg p-4">
-                        <h4 class="font-semibold mb-2">Estimated Repayment</h4>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <div class="text-sm text-blue-100/80">Monthly</div>
-                                <div id="appMonthlyPayment" class="text-xl font-bold text-blue-300">$0</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-blue-100/80">Total</div>
-                                <div id="appTotalPayment" class="text-xl font-bold text-blue-300">$0</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-blue-100/80">Interest</div>
-                                <div id="appTotalInterest" class="text-xl font-bold text-blue-300">$0</div>
-                            </div>
-                        </div>
+                    <div class="bg-primary bg-opacity-10 p-6 rounded-lg border-l-4 border-primary">
+                        <h3 class="font-bold text-lg mb-2 text-primary">Our Mission</h3>
+                        <p class="text-gray-700">To make loans simple, fair, and empowering for all our customers.</p>
                     </div>
                 </div>
-
-                <!-- Step 2: Personal Information -->
-                <div id="step2Content" class="space-y-6 hidden">
-                    <h3 class="text-2xl font-bold mb-6">Personal Information</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Full Name *</label>
-                            <input type="text" id="fullName" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Date of Birth *</label>
-                            <input type="date" id="dob" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Nationality *</label>
-                            <input type="text" id="nationality" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">ID/Passport Number *</label>
-                            <input type="text" id="idPassport" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-blue-100 mb-2">Address *</label>
-                        <textarea id="address" rows="3" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Phone *</label>
-                            <input type="tel" id="phone" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Email *</label>
-                            <input type="email" id="email" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3: Employment & Financial Information -->
-                <div id="step3Content" class="space-y-6 hidden">
-                    <h3 class="text-2xl font-bold mb-6">Employment & Financial Information</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Employer</label>
-                            <input type="text" id="employer" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Job Title</label>
-                            <input type="text" id="jobTitle" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-blue-100 mb-2">Monthly Income</label>
-                        <input type="number" id="income" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter monthly income">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-blue-100 mb-2">Bank Account Information</label>
-                        <input type="text" id="bankAccount" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter bank account details">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-blue-100 mb-2">Emergency Contact</label>
-                        <input type="text" id="emergencyContact" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Name and phone number">
-                    </div>
-
-                    <div class="border-t border-blue-500/20 pt-6">
-                        <h4 class="font-semibold mb-4">Upload Required Documents</h4>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-blue-100 mb-2">ID/Passport Scan</label>
-                                <input type="file" id="documentUpload" multiple class="hidden">
-                                <button type="button" onclick="document.getElementById('documentUpload').click()" class="w-full bg-slate-700/50 border-2 border-dashed border-blue-500/30 rounded-lg px-4 py-8 text-center hover:border-blue-400 transition-colors">
-                                    <div class="flex flex-col items-center">
-                                        <i class="fas fa-cloud-upload-alt text-blue-400 text-2xl mb-2"></i>
-                                        <span class="text-blue-100/80">Click to upload documents</span>
-                                        <span class="text-sm text-blue-300/80 mt-1">PDF, JPG, PNG up to 10MB</span>
-                                    </div>
-                                </button>
-                            </div>
-
-                            <div id="uploadedDocuments" class="space-y-2 hidden">
-                                <!-- Documents will be listed here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 4: Review & Submit -->
-                <div id="step4Content" class="space-y-6 hidden">
-                    <h3 class="text-2xl font-bold mb-6">Review & Submit</h3>
-                    <div class="bg-slate-700/50 rounded-lg p-6 space-y-4">
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Loan Type:</span>
-                            <span id="reviewLoanType" class="font-semibold">Personal Loan</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Amount:</span>
-                            <span id="reviewLoanAmount" class="font-semibold">$20,000</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Term:</span>
-                            <span id="reviewLoanTerm" class="font-semibold">3 years</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Applicant:</span>
-                            <span id="reviewFullName" class="font-semibold"></span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Email:</span>
-                            <span id="reviewEmail" class="font-semibold"></span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-100/80">Documents:</span>
-                            <span id="reviewDocuments" class="font-semibold">0 files</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-exclamation-circle text-yellow-400 mt-0.5"></i>
-                            <div>
-                                <p class="text-sm">
-                                    By submitting this application, you confirm that all information provided is accurate and complete. 
-                                    We will review your application within 24-72 hours and contact you via email.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Form Submission Success -->
-                <div id="submissionSuccess" class="text-center space-y-6 hidden">
-                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto">
-                        <i class="fas fa-check text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold">Application Submitted!</h3>
-                    <p class="text-blue-100/80">
-                        Thank you for your application. We've received your information and will review it within 24-72 hours. 
-                        You'll receive a confirmation email at <span id="successEmail"></span>.
-                    </p>
-                    <button onclick="resetApplication()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 rounded-lg font-semibold transition-all duration-300">
-                        Apply for Another Loan
-                    </button>
-                </div>
-
-                <!-- Navigation Buttons -->
-                <div id="formNavigation" class="flex justify-between mt-8">
-                    <button id="prevButton" onclick="prevStep()" class="px-6 py-3 border border-blue-500/50 rounded-lg font-semibold hover:bg-blue-500/10 transition-colors hidden">Previous</button>
-                    <button id="nextButton" onclick="nextStep()" class="ml-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 rounded-lg font-semibold transition-all duration-300">Next Step</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Us -->
-    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">About Oman Financial Company</h2>
-                <p class="text-xl text-blue-100/80 mb-6 leading-relaxed">
-                    Your Trusted Loan Partner. We provide affordable, transparent, and accessible financing options 
-                    for personal, student, auto, mortgage, and business needs.
-                </p>
-                
-                <div class="prose prose-lg text-blue-100/80 mb-8">
-                    <p>
-                        At Oman Financial Company, our mission is to make loans simple, fair, and empowering for every customer. 
-                        We believe that access to financial services should be straightforward, with no hidden fees or complicated terms.
-                    </p>
-                    <p>
-                        With years of experience in the financial industry, we've helped thousands of individuals and businesses 
-                        achieve their goals through responsible lending practices and exceptional customer service.
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">Our Values</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Integrity</span>
+                <div class="md:w-1/2">
+                    <div class="glass-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-primary">Why Choose Us?</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="bg-primary text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-check text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Fast Approvals</h4>
+                                    <p class="text-gray-600 text-sm">Get decisions in 24-72 hours with our streamlined process.</p>
+                                </div>
                             </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Transparency</span>
+                            <li class="flex items-start">
+                                <div class="bg-primary text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-check text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Low Interest Rates</h4>
+                                    <p class="text-gray-600 text-sm">Competitive rates that save you money over the life of your loan.</p>
+                                </div>
                             </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Customer Focus</span>
+                            <li class="flex items-start">
+                                <div class="bg-primary text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-check text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Transparent Terms</h4>
+                                    <p class="text-gray-600 text-sm">No hidden fees or surprises - we explain everything clearly.</p>
+                                </div>
                             </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Innovation</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Responsibility</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">Why Choose Us?</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Low interest rates</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Flexible payment plans</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Transparent terms</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>Fast approval</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span>24/7 customer support</span>
+                            <li class="flex items-start">
+                                <div class="bg-primary text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-check text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">24/7 Support</h4>
+                                    <p class="text-gray-600 text-sm">Our customer service team is always available to help you.</p>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -643,138 +564,180 @@
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-                <p class="text-xl text-blue-100/80">Everything you need to know about our loan services</p>
-            </div>
-
-            <div class="space-y-4">
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-blue-500/20 overflow-hidden">
-                    <button onclick="toggleFAQ(0)" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-blue-500/10 transition-colors">
-                        <span class="font-semibold">What types of loans do you offer?</span>
-                        <i id="faqIcon0" class="fas fa-chevron-down text-blue-300 transition-transform duration-300"></i>
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Frequently Asked Questions</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>What types of loans do you offer?</span>
+                        <i class="fas fa-plus text-primary"></i>
                     </button>
-                    <div id="faqAnswer0" class="hidden px-6 py-4 bg-slate-700/30 border-t border-blue-500/20">
-                        <p class="text-blue-100/80 leading-relaxed">We offer Personal Loans, Mortgage Loans, Business Loans, and Student Loans with competitive rates and flexible terms.</p>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            We offer four main types of loans: Personal Loans (up to $50,000), Mortgage Loans (up to $2,000,000), Business Loans (up to $5,000,000), and Student Loans (up to $150,000). Each loan type has specific terms and conditions tailored to its purpose.
+                        </div>
                     </div>
                 </div>
                 
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-blue-500/20 overflow-hidden">
-                    <button onclick="toggleFAQ(1)" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-blue-500/10 transition-colors">
-                        <span class="font-semibold">What are the eligibility requirements?</span>
-                        <i id="faqIcon1" class="fas fa-chevron-down text-blue-300 transition-transform duration-300"></i>
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>Who is eligible to apply for a loan?</span>
+                        <i class="fas fa-plus text-primary"></i>
                     </button>
-                    <div id="faqAnswer1" class="hidden px-6 py-4 bg-slate-700/30 border-t border-blue-500/20">
-                        <p class="text-blue-100/80 leading-relaxed">Applicants must be at least 18 years old, have a valid ID, stable income, and meet minimum credit score requirements.</p>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            Eligibility varies by loan type but generally requires you to be at least 18 years old, have a steady source of income, and meet our credit requirements. Specific loans may have additional requirements (e.g., mortgage loans require property details).
+                        </div>
                     </div>
                 </div>
                 
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-blue-500/20 overflow-hidden">
-                    <button onclick="toggleFAQ(2)" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-blue-500/10 transition-colors">
-                        <span class="font-semibold">How long does the application process take?</span>
-                        <i id="faqIcon2" class="fas fa-chevron-down text-blue-300 transition-transform duration-300"></i>
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>What documents are required for application?</span>
+                        <i class="fas fa-plus text-primary"></i>
                     </button>
-                    <div id="faqAnswer2" class="hidden px-6 py-4 bg-slate-700/30 border-t border-blue-500/20">
-                        <p class="text-blue-100/80 leading-relaxed">The online application takes about 10-15 minutes to complete. You can save and return to your application if needed.</p>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            Typically you'll need: Government-issued ID, proof of address (utility bill or bank statement), proof of income (pay stubs or tax returns), and bank account details. Additional documents may be required depending on the loan type.
+                        </div>
                     </div>
                 </div>
                 
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-blue-500/20 overflow-hidden">
-                    <button onclick="toggleFAQ(3)" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-blue-500/10 transition-colors">
-                        <span class="font-semibold">How quickly will I receive approval?</span>
-                        <i id="faqIcon3" class="fas fa-chevron-down text-blue-300 transition-transform duration-300"></i>
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>How long does the approval process take?</span>
+                        <i class="fas fa-plus text-primary"></i>
                     </button>
-                    <div id="faqAnswer3" class="hidden px-6 py-4 bg-slate-700/30 border-t border-blue-500/20">
-                        <p class="text-blue-100/80 leading-relaxed">Most applications receive approval within 24-72 hours after submission of all required documents.</p>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            Most applications receive a decision within 24-72 hours after we receive all required documents. Some simpler loans (like personal loans) may be approved even faster, while complex applications (like large mortgages) may take slightly longer.
+                        </div>
                     </div>
                 </div>
                 
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-blue-500/20 overflow-hidden">
-                    <button onclick="toggleFAQ(4)" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-blue-500/10 transition-colors">
-                        <span class="font-semibold">What documents are required?</span>
-                        <i id="faqIcon4" class="fas fa-chevron-down text-blue-300 transition-transform duration-300"></i>
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>What are your current interest rates?</span>
+                        <i class="fas fa-plus text-primary"></i>
                     </button>
-                    <div id="faqAnswer4" class="hidden px-6 py-4 bg-slate-700/30 border-t border-blue-500/20">
-                        <p class="text-blue-100/80 leading-relaxed">Typically: government-issued ID, proof of address, income verification (pay stubs, tax returns), and bank statements.</p>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            Our rates vary by loan type and are based on your credit profile. Current ranges are: Personal Loans from 0.88%, Mortgage Loans from 4.5%, Business Loans with flexible terms, and Student Loans up to 3%. You'll receive your exact rate after application review.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>Can I repay my loan early?</span>
+                        <i class="fas fa-plus text-primary"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            Yes! We encourage early repayment and don't charge prepayment penalties on any of our loans. Early repayment can save you money on interest. Contact us if you'd like to discuss early repayment options.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>What happens if I miss a payment?</span>
+                        <i class="fas fa-plus text-primary"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            If you anticipate difficulty making a payment, please contact us immediately. We may be able to arrange alternative payment plans. Late payments may incur fees and could affect your credit score, so we recommend setting up automatic payments to avoid missed due dates.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border-b">
+                    <button class="accordion-button w-full flex justify-between items-center py-4 font-bold text-left focus:outline-none">
+                        <span>How is my personal data secured?</span>
+                        <i class="fas fa-plus text-primary"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="pb-4 text-gray-700">
+                            We use bank-level encryption (256-bit SSL) to protect all data transmissions. Your information is stored securely and only accessed by authorized personnel for legitimate business purposes. We never sell or share your data with third parties for marketing purposes.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Us -->
-    <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12">
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-16 bg-gradient-to-r from-primary to-accent text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Contact Us</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Contact Us</h2>
-                    <p class="text-xl text-blue-100/80 mb-8">
-                        We're here to help you with any questions about our loan services.
-                    </p>
-
+                    <h3 class="text-xl font-bold mb-6">Get in Touch</h3>
                     <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
+                        <div class="flex items-start">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold">Email</h3>
-                                <p class="text-blue-100/80">omanfinancialcompany@gmail.com</p>
+                                <h4 class="font-bold">Email</h4>
+                                <a href="mailto:omanfinancialcompany@gmail.com" class="hover:underline">omanfinancialcompany@gmail.com</a>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-whatsapp text-white"></i>
+                        <div class="flex items-start">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fab fa-whatsapp"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold">WhatsApp</h3>
-                                <p class="text-blue-100/80">+1 (608) 255-8850</p>
+                                <h4 class="font-bold">WhatsApp</h4>
+                                <a href="https://wa.me/16082558850" class="hover:underline">+1 (608) 255-8850</a>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-telegram text-white"></i>
+                        <div class="flex items-start">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fab fa-telegram"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold">Telegram</h3>
-                                <p class="text-blue-100/80">@omanfinancialcompany</p>
+                                <h4 class="font-bold">Telegram</h4>
+                                <a href="https://t.me/omanfinancialcompany" class="hover:underline">@omanfinancialcompany</a>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-instagram text-white"></i>
+                        <div class="flex items-start">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fab fa-instagram"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold">Instagram</h3>
-                                <p class="text-blue-100/80">Oman_financial_</p>
+                                <h4 class="font-bold">Instagram</h4>
+                                <a href="https://instagram.com/Oman_financial_" class="hover:underline">@Oman_financial_</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20">
-                    <h3 class="text-xl font-bold mb-6">Send us a Message</h3>
-                    <form class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Name</label>
-                            <input type="text" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your name">
+                
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6 text-primary">Send Us a Message</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label for="contact-name" class="block text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="contact-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Email</label>
-                            <input type="email" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your email">
+                        <div class="mb-4">
+                            <label for="contact-email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="contact-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100 mb-2">Message</label>
-                            <textarea rows="5" class="w-full bg-slate-700/50 border border-blue-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="How can we help you?"></textarea>
+                        <div class="mb-4">
+                            <label for="contact-subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="contact-subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 py-3 rounded-lg font-semibold transition-all duration-300">
-                            Send Message
+                        <div class="mb-4">
+                            <label for="contact-message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="contact-message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" required></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-secondary transition duration-300 w-full">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
                         </button>
                     </form>
                 </div>
@@ -782,442 +745,239 @@
         </div>
     </section>
 
-    <!-- Privacy Policy -->
-    <section id="privacy" class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/20">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Privacy Policy</h2>
+    <!-- Privacy Policy Section -->
+    <section id="privacy" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-primary">Privacy Policy</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Data Collection</h3>
+                    <p class="text-gray-700 mb-4">We collect personal information (name, contact details), financial information (income, employment), and technical data (IP address, cookies) to process your loan application and provide our services.</p>
+                </div>
                 
-                <div class="prose prose-lg text-blue-100/80 space-y-6">
-                    <p>
-                        At Oman Financial Company, we take your privacy seriously. This policy explains how we collect, 
-                        use, and protect your personal information.
-                    </p>
-
-                    <div>
-                        <h3 class="text-xl font-bold mb-3">Data Collected</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><strong>Personal Information:</strong> Name, date of birth, nationality, contact details</li>
-                            <li><strong>Financial Information:</strong> Income, employment details, bank account information</li>
-                            <li><strong>Technical Data:</strong> Website usage data collected via cookies and analytics</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-bold mb-3">Usage of Information</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Processing your loan application and verification</li>
-                            <li>Communicating with you about your application status</li>
-                            <li>Compliance with financial regulations and fraud prevention</li>
-                            <li>Improving our services and website experience</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-bold mb-3">Security Measures</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Encrypted data storage and transmission</li>
-                            <li>Secure servers with restricted access</li>
-                            <li>Regular security audits and updates</li>
-                            <li>Compliance with international data protection standards</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-bold mb-3">Your Rights</h3>
-                        <p>You have the right to:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>Access your personal data</li>
-                            <li>Request correction of inaccurate information</li>
-                            <li>Request deletion of your data</li>
-                            <li>Withdraw consent at any time</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-bold mb-3">Contact for Privacy Issues</h3>
-                        <p>
-                            For any privacy-related concerns or requests, please contact us at: 
-                            <a href="mailto:privacy@omanfinancial.com" class="text-blue-300 hover:underline">privacy@omanfinancial.com</a>
-                        </p>
-                    </div>
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Data Usage</h3>
+                    <p class="text-gray-700 mb-4">Your information is used for loan processing, communication, compliance with legal obligations, fraud prevention, and improving our services. We do not sell your data to third parties.</p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Data Security</h3>
+                    <p class="text-gray-700 mb-4">We implement industry-standard security measures including encryption (SSL/TLS), secure servers, and access controls to protect your data. All employees are trained in data protection best practices.</p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Your Rights</h3>
+                    <p class="text-gray-700 mb-4">You have the right to access, correct, or request deletion of your personal data. You may also request restriction of processing or object to certain uses of your data. To exercise these rights, contact our Privacy Officer.</p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Contact for Privacy Concerns</h3>
+                    <p class="text-gray-700">For any privacy-related questions or requests, please contact our Privacy Officer at <a href="mailto:omanfinancialcompany@gmail.com" class="text-accent hover:underline">omanfinancialcompany@gmail.com</a>.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-800/80 backdrop-blur-sm border-t border-blue-500/20 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <div class="lg:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                            </svg>
-                        </div>
+    <footer class="bg-primary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-university text-2xl"></i>
                         <span class="text-xl font-bold">Oman Financial</span>
                     </div>
-                    <p class="text-blue-100/80 mb-4">
-                        Your trusted loan partner providing flexible financing solutions 
-                        for personal, business, and educational needs.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-green-500/20 hover:bg-green-500/30 rounded-lg flex items-center justify-center transition-colors">
-                            <i class="fab fa-whatsapp text-green-500"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg flex items-center justify-center transition-colors">
-                            <i class="fab fa-telegram text-blue-500"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-pink-500/20 hover:bg-pink-500/30 rounded-lg flex items-center justify-center transition-colors">
-                            <i class="fab fa-instagram text-pink-500"></i>
-                        </a>
+                    <p class="mt-2 text-sm opacity-80">Your Trusted Loan Partner</p>
+                </div>
+                
+                <div class="mb-6 md:mb-0">
+                    <h4 class="font-bold mb-3">Quick Links</h4>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-2">
+                        <a href="#home" class="text-sm hover:underline">Home</a>
+                        <a href="#loans" class="text-sm hover:underline">Loan Options</a>
+                        <a href="#apply" class="text-sm hover:underline">Apply</a>
+                        <a href="#about" class="text-sm hover:underline">About Us</a>
+                        <a href="#faq" class="text-sm hover:underline">FAQ</a>
+                        <a href="#contact" class="text-sm hover:underline">Contact</a>
+                        <a href="#privacy" class="text-sm hover:underline">Privacy Policy</a>
                     </div>
                 </div>
-
+                
                 <div>
-                    <h3 class="font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><button onclick="scrollToSection('home')" class="text-blue-100/80 hover:text-blue-300 transition-colors">Home</button></li>
-                        <li><button onclick="scrollToSection('loans')" class="text-blue-100/80 hover:text-blue-300 transition-colors">Loan Options</button></li>
-                        <li><button onclick="scrollToSection('calculator')" class="text-blue-100/80 hover:text-blue-300 transition-colors">Calculator</button></li>
-                        <li><button onclick="scrollToSection('about')" class="text-blue-100/80 hover:text-blue-300 transition-colors">About Us</button></li>
-                        <li><button onclick="scrollToSection('faq')" class="text-blue-100/80 hover:text-blue-300 transition-colors">FAQ</button></li>
-                        <li><button onclick="scrollToSection('contact')" class="text-blue-100/80 hover:text-blue-300 transition-colors">Contact</button></li>
-                        <li><button onclick="scrollToSection('privacy')" class="text-blue-100/80 hover:text-blue-300 transition-colors">Privacy Policy</button></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-bold mb-4">Contact Info</h3>
-                    <div class="space-y-2 text-blue-100/80">
-                        <p>Email: omanfinancialcompany@gmail.com</p>
-                        <p>WhatsApp: +1 (608) 255-8850</p>
-                        <p>Telegram: @omanfinancialcompany</p>
+                    <h4 class="font-bold mb-3">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/16082558850" class="bg-white bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://t.me/omanfinancialcompany" class="bg-white bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://instagram.com/Oman_financial_" class="bg-white bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="mailto:omanfinancialcompany@gmail.com" class="bg-white bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <div class="border-t border-blue-500/20 pt-8 text-center text-blue-100/80">
-                <p>&copy; <span id="currentYear"></span> Oman Financial Company. All rights reserved.</p>
-                <p class="text-sm mt-2">
-                    Note: All loan application details are securely processed and sent to omanfinancialcompany@gmail.com
-                </p>
+            
+            <div class="border-t border-white border-opacity-20 mt-8 pt-6 text-center text-sm opacity-80">
+                <p>&copy; 2023 Oman Financial Company. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Loan Types Configuration
-        const loanTypes = {
-            personal: { name: "Personal Loan", max: 50000, rate: 0.88, term: 5 },
-            mortgage: { name: "Mortgage Loan", max: 2000000, rate: 4.5, term: 30 },
-            business: { name: "Business Loan", max: 5000000, rate: 6.0, term: 10 },
-            student: { name: "Student Loan", max: 150000, rate: 3.0, term: 15 }
-        };
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
 
-        // Application state
-        let currentStep = 1;
-        let formSubmitted = false;
-        let uploadedFiles = [];
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set current year in footer
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            // Initialize loan calculator
-            updateLoanCalculation();
-            
-            // Handle file upload
-            document.getElementById('documentUpload').addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
-                uploadedFiles = files;
-                updateUploadedDocuments();
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Loan calculation functions
-        function updateLoanCalculation() {
-            const loanType = document.getElementById('loanType').value;
-            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
-            const loanTerm = parseFloat(document.getElementById('loanTerm').value);
-            
-            const selected = loanTypes[loanType];
-            const monthlyRate = (selected.rate / 100) / 12;
-            const totalPayments = loanTerm * 12;
-            
-            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / 
-                                  (Math.pow(1 + monthlyRate, totalPayments) - 1);
-            
-            const totalRepayment = monthlyPayment * totalPayments;
-            const totalInterest = totalRepayment - loanAmount;
-            
-            // Update calculator display
-            document.getElementById('monthlyPayment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
-            document.getElementById('totalPayment').textContent = '$' + Math.round(totalRepayment).toLocaleString();
-            document.getElementById('totalInterest').textContent = '$' + Math.round(totalInterest).toLocaleString();
-            
-            // Update application form display
-            document.getElementById('appMonthlyPayment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
-            document.getElementById('appTotalPayment').textContent = '$' + Math.round(totalRepayment).toLocaleString();
-            document.getElementById('appTotalInterest').textContent = '$' + Math.round(totalInterest).toLocaleString();
-        }
-
-        function updateLoanAmount() {
-            const loanAmount = document.getElementById('loanAmount').value;
-            const loanType = document.getElementById('loanType').value;
-            
-            // Update display
-            document.getElementById('loanAmountLabel').textContent = 'Loan Amount: $' + parseInt(loanAmount).toLocaleString();
-            
-            // Update application form
-            document.getElementById('appLoanAmount').value = loanAmount;
-            
-            updateLoanCalculation();
-        }
-
-        function updateLoanTerm() {
-            const loanTerm = document.getElementById('loanTerm').value;
-            const loanType = document.getElementById('loanType').value;
-            
-            // Update display
-            document.getElementById('loanTermLabel').textContent = 'Repayment Term: ' + loanTerm + ' years';
-            
-            // Update application form
-            document.getElementById('appLoanTerm').value = loanTerm;
-            
-            updateLoanCalculation();
-        }
-
-        function updateMaxValues() {
-            const loanType = document.getElementById('loanType').value;
-            const selected = loanTypes[loanType];
-            
-            // Update max values
-            document.getElementById('loanAmount').max = selected.max;
-            document.getElementById('loanTerm').max = selected.term;
-            document.getElementById('maxAmount').textContent = 'Up to $' + selected.max.toLocaleString();
-            document.getElementById('maxTerm').textContent = 'Up to ' + selected.term + ' years';
-            
-            // Update application form
-            document.getElementById('appLoanType').value = loanType;
-            document.getElementById('appLoanAmount').max = selected.max;
-            document.getElementById('appLoanTerm').max = selected.term;
-            
-            updateLoanCalculation();
-        }
-
-        // Application form functions
-        function startApplication() {
-            scrollToSection('calculator');
-        }
-
-        function selectLoanType(type) {
-            document.getElementById('loanType').value = type;
-            document.getElementById('appLoanType').value = type;
-            updateMaxValues();
-            scrollToSection('calculator');
-        }
-
-        function nextStep() {
-            if (currentStep < 4) {
-                // Validate current step before proceeding
-                if (validateStep(currentStep)) {
-                    currentStep++;
-                    updateStepDisplay();
-                }
-            } else {
-                // Submit the application
-                submitApplication();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateStepDisplay();
-            }
-        }
-
-        function updateStepDisplay() {
-            // Hide all steps
-            document.getElementById('step1Content').classList.add('hidden');
-            document.getElementById('step2Content').classList.add('hidden');
-            document.getElementById('step3Content').classList.add('hidden');
-            document.getElementById('step4Content').classList.add('hidden');
-            
-            // Show current step
-            document.getElementById('step' + currentStep + 'Content').classList.remove('hidden');
-            
-            // Update progress bar
-            for (let i = 1; i <= 4; i++) {
-                const stepElement = document.getElementById('step' + i);
-                if (i <= currentStep) {
-                    stepElement.className = 'h-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700';
+        // Accordion functionality for FAQ
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
                 } else {
-                    stepElement.className = 'h-2 rounded-full bg-slate-700';
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 }
-            }
-            
-            // Update navigation buttons
-            if (currentStep === 1) {
-                document.getElementById('prevButton').classList.add('hidden');
-            } else {
-                document.getElementById('prevButton').classList.remove('hidden');
-            }
-            
-            if (currentStep === 4) {
-                document.getElementById('nextButton').textContent = 'Submit Application';
-                document.getElementById('nextButton').className = 'ml-auto px-6 py-3 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 rounded-lg font-semibold transition-all duration-300';
-                
-                // Update review section
-                document.getElementById('reviewLoanType').textContent = loanTypes[document.getElementById('loanType').value].name;
-                document.getElementById('reviewLoanAmount').textContent = '$' + document.getElementById('loanAmount').value.toLocaleString();
-                document.getElementById('reviewLoanTerm').textContent = document.getElementById('loanTerm').value + ' years';
-                document.getElementById('reviewFullName').textContent = document.getElementById('fullName').value;
-                document.getElementById('reviewEmail').textContent = document.getElementById('email').value;
-                document.getElementById('reviewDocuments').textContent = uploadedFiles.length + ' files';
-            } else {
-                document.getElementById('nextButton').textContent = 'Next Step';
-                document.getElementById('nextButton').className = 'ml-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 rounded-lg font-semibold transition-all duration-300';
-            }
-        }
-
-        function validateStep(step) {
-            switch(step) {
-                case 1:
-                    // Validate loan details
-                    return true;
-                case 2:
-                    // Validate personal information
-                    const requiredFields = ['fullName', 'dob', 'nationality', 'idPassport', 'address', 'phone', 'email'];
-                    let isValid = true;
-                    
-                    for (const field of requiredFields) {
-                        const value = document.getElementById(field).value.trim();
-                        if (!value) {
-                            isValid = false;
-                            document.getElementById(field).classList.add('border-red-500');
-                        } else {
-                            document.getElementById(field).classList.remove('border-red-500');
-                        }
-                    }
-                    
-                    if (!isValid) {
-                        alert('Please fill in all required fields marked with *');
-                    }
-                    
-                    return isValid;
-                case 3:
-                    // Validate employment info (no required fields)
-                    return true;
-                default:
-                    return true;
-            }
-        }
-
-        function submitApplication() {
-            // In a real app, this would send to a backend
-            console.log("Application submitted:", {
-                loanType: document.getElementById('loanType').value,
-                loanAmount: document.getElementById('loanAmount').value,
-                loanTerm: document.getElementById('loanTerm').value,
-                fullName: document.getElementById('fullName').value,
-                dob: document.getElementById('dob').value,
-                nationality: document.getElementById('nationality').value,
-                idPassport: document.getElementById('idPassport').value,
-                address: document.getElementById('address').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                employer: document.getElementById('employer').value,
-                jobTitle: document.getElementById('jobTitle').value,
-                income: document.getElementById('income').value,
-                bankAccount: document.getElementById('bankAccount').value,
-                emergencyContact: document.getElementById('emergencyContact').value,
-                documents: uploadedFiles
             });
+        });
 
-            // Show success message
-            document.getElementById('applicationForm').classList.add('hidden');
-            document.getElementById('submissionSuccess').classList.remove('hidden');
-            document.getElementById('successEmail').textContent = document.getElementById('email').value;
-            formSubmitted = true;
-        }
-
-        function resetApplication() {
-            // Reset form
-            document.getElementById('loanType').value = 'personal';
-            document.getElementById('loanAmount').value = 20000;
-            document.getElementById('loanTerm').value = 3;
+        // Form step navigation
+        let currentStep = 1;
+        const totalSteps = 4;
+        
+        function updateProgressBar() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
             
-            // Reset personal info
-            const fields = ['fullName', 'dob', 'nationality', 'idPassport', 'address', 'phone', 'email', 
-                           'employer', 'jobTitle', 'income', 'bankAccount', 'emergencyContact'];
-            for (const field of fields) {
-                document.getElementById(field).value = '';
-            }
-            
-            // Reset documents
-            uploadedFiles = [];
-            document.getElementById('documentUpload').value = '';
-            document.getElementById('uploadedDocuments').classList.add('hidden');
-            
-            // Reset steps
-            currentStep = 1;
-            formSubmitted = false;
-            document.getElementById('submissionSuccess').classList.add('hidden');
-            document.getElementById('applicationForm').classList.remove('hidden');
-            updateStepDisplay();
-            updateLoanCalculation();
-        }
-
-        function updateUploadedDocuments() {
-            const container = document.getElementById('uploadedDocuments');
-            container.innerHTML = '';
-            
-            if (uploadedFiles.length > 0) {
-                container.classList.remove('hidden');
-                
-                for (let i = 0; i < uploadedFiles.length; i++) {
-                    const file = uploadedFiles[i];
-                    const div = document.createElement('div');
-                    div.className = 'flex items-center justify-between bg-slate-700/50 rounded-lg p-3';
-                    div.innerHTML = `
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-file text-blue-400"></i>
-                            <span class="text-sm">${file.name}</span>
-                        </div>
-                        <button onclick="removeDocument(${i})" class="text-red-400 hover:text-red-300">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
-                    container.appendChild(div);
+            // Update step indicators
+            document.querySelectorAll('.step div:first-child').forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.remove('bg-gray-300', 'text-gray-600');
+                    step.classList.add('bg-primary', 'text-white');
+                } else {
+                    step.classList.remove('bg-primary', 'text-white');
+                    step.classList.add('bg-gray-300', 'text-gray-600');
                 }
-            } else {
-                container.classList.add('hidden');
-            }
+            });
         }
-
-        function removeDocument(index) {
-            uploadedFiles.splice(index, 1);
-            updateUploadedDocuments();
+        
+        function showStep(stepNumber) {
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            currentStep = stepNumber;
+            updateProgressBar();
         }
-
-        // UI functions
-        function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('mobileMenu').classList.add('hidden');
+        
+        document.querySelectorAll('.next-step').forEach(button => {
+            button.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    showStep(currentStep + 1);
+                    
+                    // Update review section if we're going to step 4
+                    if (currentStep === 4) {
+                        updateReviewSection();
+                    }
+                }
+            });
+        });
+        
+        document.querySelectorAll('.prev-step').forEach(button => {
+            button.addEventListener('click', () => {
+                showStep(currentStep - 1);
+            });
+        });
+        
+        function validateStep(stepNumber) {
+            let isValid = true;
+            const step = document.getElementById(`step-${stepNumber}`);
             
-            // Update active navigation
-            const navItems = document.querySelectorAll('nav button');
-            navItems.forEach(item => {
-                if (item.textContent.toLowerCase() === sectionId.toLowerCase()) {
-                   
+            // Check all required fields in this step
+            const inputs = step.querySelectorAll('input[required], select[required]');
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            
+            // Special validation for email
+            if (stepNumber === 1) {
+                const email = document.getElementById('email');
+                if (email.value && !/^\S+@\S+\.\S+$/.test(email.value)) {
+                    email.classList.add('border-red-500');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+        
+        function updateReviewSection() {
+            // Personal Info
+            document.getElementById('review-full-name').textContent = document.getElementById('full-name').value;
+            document.getElementById('review-dob').textContent = document.getElementById('dob').value;
+            document.getElementById('review-nationality').textContent = document.getElementById('nationality').value;
+            document.getElementById('review-id-number').textContent = document.getElementById('id-number').value;
+            
+            // Employment Info
+            document.getElementById('review-employer').textContent = document.getElementById('employer').value;
+            document.getElementById('review-job-title').textContent = document.getElementById('job-title').value;
+            document.getElementById('review-income').textContent = '$' + document.getElementById('income').value;
+            
+            // Loan Details
+            const loanTypeSelect = document.getElementById('loan-type');
+            document.getElementById('review-loan-type').textContent = loanTypeSelect.options[loanTypeSelect.selectedIndex].text;
+            document.getElementById('review-loan-amount').textContent = '$' + document.getElementById('loan-amount').value;
+            document.getElementById('review-loan-term').textContent = document.getElementById('loan-term').value + ' years';
+        }
+        
+        // Form submission
+        document.getElementById('loan-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send this data to your server
+            // For this demo, we'll just show a success message
+            document.getElementById('loan-form').style.display = 'none';
+            document.getElementById('success-message').classList.remove('hidden');
+            
+            // Here you would typically send the form data to omanfinancialcompany@gmail.com
+            // For example using fetch() or form submission to a backend endpoint
+            console.log('Form data would be sent to omanfinancialcompany@gmail.com');
+        });
+        
+        // Initialize progress bar
+        updateProgressBar();
+    </script>
 </body>
 </html>
